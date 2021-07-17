@@ -64,4 +64,4 @@ function aktualizacja(msg, ilosc){
         
     }
     
-bot.login();
+bot.login(process.env.TOKEN);
