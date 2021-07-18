@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const FiveM = require("fivem");
-const srv = new FiveM.Server("93.158.236.25:30120");
+const FiveM = require("discord-fivem-api");
+const srv = new FiveM.DiscordFivemApi("93.158.236.25:30120");
 const bot = new Discord.Client({disableEveryone: false});
 
 let powon = true;
@@ -20,6 +20,7 @@ let wynik = new Discord.MessageEmbed()
         .setTitle('Stan Majątkowy');
         
 parseInt(suma);
+
 
 bot.on("ready", async ()=>{
     console.log("Zalogowano");
@@ -49,27 +50,26 @@ bot.on("message", async msg =>{
     }
 
 })
-setInterval(function(){ 
+setInterval(async function(){ 
     if(serverchannel!=0){
         offon.setDescription("@everyone");
-        srv.getServerStatus().then(data => {
-            console.log(data.online);
-            if(data.online&&powiadomienie){
+        await srv.getServerStatus().then( data => {
+            console.log(data);
+            if(data=="online"&&powiadomienie){
                 serverchannel.bulkDelete(30);
                 offon.setColor('#00ff00');
                 offon.setTitle("SERVER ONLINE");
                 serverchannel.send(offon);
                 powiadomienie= false;
             }
-            else if(!data.online&&!powiadomienie){
+            else if(data!="online"&&!powiadomienie){
                 serverchannel.bulkDelete(30);
                 offon.setColor('#ff0000');
                 offon.setTitle("SERVER OFFLINE");
                 serverchannel.send(offon);
                 powiadomienie=true;
             }
-        });
-
+        })
     }
 }, 10000);
 
@@ -104,5 +104,4 @@ function aktualizacja(msg, ilosc){
         
     }
     
-    
-//bot.login(process.env.TOKEN);
+bot.login(process.env.TOKEN);
