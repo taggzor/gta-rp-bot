@@ -98,4 +98,4 @@ function aktualizacja(msg, ilosc){
         
     }
     
-bot.login(process.env.TOKEN);
+//bot.login(process.env.TOKEN);
