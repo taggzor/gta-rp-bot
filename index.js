@@ -64,7 +64,7 @@ setInterval(function(){
         });
 
     }
-}, 10000);
+}, 100000000000000);
 
 function aktualizacja(msg, ilosc){
     let gracz=parseInt(msg.author.id);
