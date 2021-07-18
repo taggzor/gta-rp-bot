@@ -48,6 +48,29 @@ bot.on("message", async msg =>{
         serverchannel = msg.channel;
         if(!msg.author.bot) msg.delete();
     }
+    if (message.content === '!stats') {
+    server.getPlayers().then((data) => {
+      let result  = [];
+      let index = 1;
+      for (let player of data) {
+        result.push(`${index++}. ${player.name} | ${player.id} ID | ${player.ping} ping\n`);
+      }
+      const playersOnline = await server.getPlayersOnline()
+      const embed = new Discord.MessageEmbed()
+        .setColor("BLUE")
+        .setAuthor("Server is online")
+        .setTitle(`Players (${data.length}/${playersOnline})`)
+        .setDescription(result.length > 0 ? result : 'No Players Online!')
+        .setTimestamp();
+      message.channel.send(embed);
+    }).catch((err) => {
+      const embed = new Discord.MessageEmbed()
+      .setColor("RED")
+      .setAuthor("Server is offline")
+      .setTimestamp();
+    message.channel.send(embed);
+    });
+ }
 
 })
 setInterval(async function(){ 
