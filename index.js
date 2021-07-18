@@ -48,8 +48,6 @@ bot.on("message", async msg =>{
         serverchannel = msg.channel;
         if(!msg.author.bot) msg.delete();
     }
-    
- }
 
 })
 setInterval(async function(){ 
