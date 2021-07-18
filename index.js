@@ -5,6 +5,7 @@ const bot = new Discord.Client();
 let dane={};
 let lp=0;
 let suma=0;
+let kolejnosc={};
 parseInt(suma);
 bot.on("ready", async ()=>{
     console.log("Zalogowano");
@@ -36,27 +37,31 @@ bot.on("message", async msg =>{
 })
 
 function aktualizacja(msg, ilosc){
-    let kwota= formatNumber(ilosc);
     let gracz=parseInt(msg.author.id);
     let nick=msg.author.username;
-    
+    wynik.spliceFields(0,1000);
     if(!dane[gracz]){ 
         suma+=parseInt(ilosc);
+        
         dane[gracz] = {
-            liczba: lp,
+            miejsce: lp,
             kasa: ilosc,
             nazwa: [nick]
-            
         };
+        kolejnosc[lp] = dane[gracz];
         lp++;
-        wynik.addField(nick, kwota+" $", false);
+        
     }
-    else {wynik.spliceFields(dane[gracz].liczba,1);
+    else {
         suma-=parseInt(dane[gracz].kasa);
         suma+=parseInt(ilosc);
         dane[gracz].kasa = ilosc;
-        wynik.addField(nick, kwota+" $", false);
+        //wynik.addField(nick, kwota+" $", false);
     
+    }
+    for(var i=0;i<lp;i++){
+        wynik.addField(kolejnosc[i].nazwa, formatNumber(kolejnosc[i].kasa)+" $", false);
+        console.log(kolejnosc[i]);
     }
     wynik.setDescription("Suma mamony: "+ formatNumber(suma)+" $");
     msg.channel.bulkDelete(2);
