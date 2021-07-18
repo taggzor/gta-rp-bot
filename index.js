@@ -46,7 +46,7 @@ bot.on("message", async msg =>{
     }
 
 })
-setInterval(function(){ 
+/*setInterval(function(){ 
     if(serverchannel!=0){
         srv.getServerStatus().then(data => {
         if(data.online){
@@ -64,7 +64,7 @@ setInterval(function(){
         });
 
     }
-}, 100000000000000);
+}, 100000000000000);*/
 
 function aktualizacja(msg, ilosc){
     let gracz=parseInt(msg.author.id);
