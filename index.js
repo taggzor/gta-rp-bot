@@ -53,6 +53,7 @@ setInterval(function(){
     if(serverchannel!=0){
         offon.setDescription("@everyone");
         srv.getServerStatus().then(data => {
+            console.log(data.online);
             if(data.online&&powiadomienie){
                 serverchannel.bulkDelete(30);
                 offon.setColor('#00ff00');
@@ -104,4 +105,4 @@ function aktualizacja(msg, ilosc){
     }
     
     
-//bot.login(process.env.TOKEN);
+bot.login(process.env.TOKEN);
