@@ -35,7 +35,6 @@ bot.on("message", async msg =>{
         if(msg.content.startsWith("kwota ")){
             var ilosc = msg.content.substr(6);
             if(!isNaN(ilosc)) aktualizacja(msg, ilosc);
-            msg.delete();
         }
         if(!msg.author.bot) msg.delete();
         console.log(dane);
