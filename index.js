@@ -13,7 +13,7 @@ let suma=0;
 let kolejnosc={};
 
 
-srv.getServerStatus().then(data => console.log(data));
+
 parseInt(suma);
 bot.on("ready", async ()=>{
     console.log("Zalogowano");
@@ -23,7 +23,6 @@ function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
 
-srv.getServerStatus().then(data => console.log(data))
 let wynik = new Discord.MessageEmbed()
         .setColor('#0099aa')
         .setTitle('Stan Majątkowy');
@@ -49,16 +48,21 @@ bot.on("message", async msg =>{
 })
 setInterval(function(){ 
     if(serverchannel!=0){
-        if(srv.getServerStatus().online){
-            if(powon){serverchannel.send(`@everyone Serwer ONLINE`);
-            powon = false;
-            powoff = true;}
-        }
-        else {
-            if(powoff){serverchannel.send(`@everyone Serwer OFFLINE`);
-            powoff = false;
-            powon = true;}
-        }
+        srv.getServerStatus().then(data => {
+        if(data.online){
+                    if(powon){serverchannel.send(`@everyone Serwer ONLINE`);
+                    powon = false;
+                    powoff = true;}
+                }
+                else {
+                    if(powoff){
+                        serverchannel.send(`@everyone Serwer OFFLINE`);
+                    powoff = false;
+                    powon = true;}
+                }
+
+        });
+
     }
 }, 10000);
 
